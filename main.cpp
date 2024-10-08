@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include <mmsystem.h>
-#include <conio.h>
+#include <conio.h>  // for kbhit and getch
 #include <iostream>
 #include <string>
 
