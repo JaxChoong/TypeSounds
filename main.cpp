@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include <mmsystem.h>
-#include <conio.h>  // for kbhit and getch
+#include <conio.h>  // for _kbhit and _getch
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -11,20 +11,20 @@
 
 int main(){
     std::cout << "Press any key! \n";
-    srand(static_cast<unsigned int>(time(0)));  // generate seed for randomiser
+    srand(static_cast<unsigned int>(time(0)));                                       // generate seed for randomizer
     while (true){
         if (_kbhit()){
-            int key = _getch();  // Get the pressed key (non-blocking)
+            int key = _getch();                                                      // Get the pressed key (non-blocking)
             // Check if the Escape key is pressed to stop the sound
-            if (key == 27) {  // 27 is ASCII code for Escape key
-                PlaySound(NULL, 0, 0);  // Stop any playing sound
+            if (key == 27) {                                                         // 27 is ASCII code for Escape key
+                PlaySound(NULL, 0, 0);                                               // Stop any playing sound
                 std::cout << "Sound stopped. Exiting...\n";
-                break;  // Exit the loop
+                break;                                                               // Exit the loop
             }
-            int audioNum = rand() % 18; // get number between 0 and 17
-            audioNum++;  // +1 to get between 1 and 18
+            int audioNum = rand() % 18;                                              // get number between 0 and 17
+        audioNum++;                                                                  // +1 to get between 1 and 18
             std::string audioFile = "sounds/" + std::to_string(audioNum) + ".wav";   // generate file name
-            const char* audioFileCStr = audioFile.c_str(); // get acceptable string format for TEXT()
+            const char* audioFileCStr = audioFile.c_str();                           // get acceptable string format for TEXT()
 
             PlaySound(audioFileCStr, NULL, SND_FILENAME | SND_ASYNC |SND_NOSTOP);
         }
