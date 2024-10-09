@@ -16,6 +16,7 @@ int main(){
         if (_kbhit()){
             int key = _getch();                                                      // Get the pressed key (non-blocking)
             // Check if the Escape key is pressed to stop the sound
+            std::cout << char(key);
             if (key == 27) {                                                         // 27 is ASCII code for Escape key
                 PlaySound(NULL, 0, 0);                                               // Stop any playing sound
                 std::cout << "Sound stopped. Exiting...\n";
