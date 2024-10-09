@@ -14,6 +14,7 @@ int main(){
     srand(static_cast<unsigned int>(time(0)));                                       // generate seed for randomizer
     while (true){
         if (_kbhit()){
+            PlaySound(NULL, 0, 0); 
             int key = _getch();                                                      // Get the pressed key (non-blocking)
             // Check if the Escape key is pressed to stop the sound
             std::cout << char(key);
@@ -23,11 +24,10 @@ int main(){
                 break;                                                               // Exit the loop
             }
             int audioNum = rand() % 18;                                              // get number between 0 and 17
-        audioNum++;                                                                  // +1 to get between 1 and 18
+            audioNum++;                                                              // +1 to get between 1 and 18
             std::string audioFile = "sounds/" + std::to_string(audioNum) + ".wav";   // generate file name
-            const char* audioFileCStr = audioFile.c_str();                           // get acceptable string format for TEXT()
 
-            PlaySound(audioFileCStr, NULL, SND_FILENAME | SND_ASYNC |SND_NOSTOP);
+            PlaySound(audioFile.c_str(), NULL, SND_FILENAME | SND_ASYNC |SND_NOSTOP);
         }
     }
     return 0;
