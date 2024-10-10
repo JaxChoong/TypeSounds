@@ -25,7 +25,7 @@ int main(){
             }
             int audioNum = rand() % 18;                                              // get number between 0 and 17
             audioNum++;                                                              // +1 to get between 1 and 18
-            std::string audioFile = "sounds/" + std::to_string(audioNum) + ".wav";   // generate file name
+            std::string audioFile = "sounds/AC/" + std::to_string(audioNum) + ".wav";   // generate file name
 
             PlaySound(audioFile.c_str(), NULL, SND_FILENAME | SND_ASYNC |SND_NOSTOP);
         }
