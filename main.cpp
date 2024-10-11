@@ -17,6 +17,17 @@ std::string soundDirectory = "sounds/";
 std::string soundProfilePath = "AC/";                                 // start with animal crossing sound profile
 std::string combinedPath = soundDirectory + soundProfilePath;
 
+int countFilesInDirectory(const std::string& directoryPath){
+    // count number of files in directory
+    int count = 0;
+    for (const auto& entry : std::filesystem::directory_iterator(directoryPath)){
+        count++;
+    }
+    return count;
+}
+
+int fileCount = countFilesInDirectory(combinedPath);
+
 int main(){
     std::cout << "Press any key! \n";
     srand(static_cast<unsigned int>(time(0)));                                       
@@ -41,9 +52,12 @@ int main(){
                     soundProfilePath = soundProfiles.at(soundProfileIndex);
                 }
                 combinedPath = soundDirectory + soundProfilePath;
+                fileCount = countFilesInDirectory(combinedPath);
+                std::cout << "Sound profile changed to " << soundProfilePath << std::endl;
+                std::cout << "Number of files in directory: " << fileCount << std::endl;
             }
             PlaySound(NULL, 0, 0); 
-            int audioNum = rand() % 18;                                              // get number between 0 and 17
+            int audioNum = rand() % fileCount;                                              // get number between 0 and 17
             audioNum++;                                                              // +1 to get between 1 and 18
             std::cout << std::endl << combinedPath;
             std::string audioFile = combinedPath + std::to_string(audioNum) + ".wav";   // generate file name
