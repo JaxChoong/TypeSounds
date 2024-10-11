@@ -6,18 +6,21 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <filesystem>
 
 #pragma comment(lib,"winmm.lib")
 
 
 std::vector<std::string> soundProfiles = {"AC/", "Another/"};
 int soundProfileIndex = 0;
+std::string soundDirectory = "sounds/";
+std::string soundProfilePath = "AC/";                                 // start with animal crossing sound profile
+std::string combinedPath = soundDirectory + soundProfilePath;
 
 int main(){
     std::cout << "Press any key! \n";
-    srand(static_cast<unsigned int>(time(0)));      
-    std::string soundDirectory = "sounds/";                                 
-    std::string soundProfilePath = "AC/";                                 // start with animal crossing sound profile
+    srand(static_cast<unsigned int>(time(0)));                                       
+    
     while (true){
         if (_kbhit()){
             int key = _getch();                                                      // Get the pressed key (non-blocking)
@@ -37,12 +40,13 @@ int main(){
                     soundProfileIndex = 0;
                     soundProfilePath = soundProfiles.at(soundProfileIndex);
                 }
+                combinedPath = soundDirectory + soundProfilePath;
             }
             PlaySound(NULL, 0, 0); 
             int audioNum = rand() % 18;                                              // get number between 0 and 17
             audioNum++;                                                              // +1 to get between 1 and 18
-            std::cout << std::endl << soundDirectory + soundProfilePath;
-            std::string audioFile = soundDirectory + soundProfilePath + std::to_string(audioNum) + ".wav";   // generate file name
+            std::cout << std::endl << combinedPath;
+            std::string audioFile = combinedPath + std::to_string(audioNum) + ".wav";   // generate file name
 
             PlaySound(audioFile.c_str(), NULL, SND_FILENAME | SND_ASYNC);
         }
